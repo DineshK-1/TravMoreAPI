@@ -30,8 +30,8 @@ class ForumQueries(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     UserID = Column(String(100), nullable=False)
     QueryText = Column(String(300), nullable=False)
-    QueryDate = Column(DATE, nullable=False)
-    QueryTime = Column(TIMESTAMP, nullable=False)
+    QueryDate = Column(DATE, nullable=False, server_default=func.now())
+    QueryTime = Column(TIMESTAMP(timezone=True), onupdate=func.now())
 
 class ForumReplies(Base):
     __tablename__ = "forumreplies"
@@ -39,5 +39,5 @@ class ForumReplies(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     QueryID = Column(Integer, ForeignKey('forumqueries.id'), nullable=False)
     ReplyText = Column(String(300), nullable=False)
-    ReplyDate = Column(DATE, nullable=False)
-    ReplyTime = Column(TIMESTAMP, nullable=False)
+    ReplyDate = Column(DATE, nullable=False, server_default=func.now())
+    ReplyTime = Column(TIMESTAMP(timezone=True), onupdate=func.now())
