@@ -86,3 +86,43 @@ async def get_reviews(placeID:str,  db: Session = Depends(get_db)):
     review_objects = db.query(models.Reviews).filter(models.Ratings.placeID == placeID).all()
 
     return review_objects
+
+@app.post("/add_forum_query")
+async def add_forum_query(query_text:str,  db: Session = Depends(get_db)):
+    userID = "User #"+str(random.randint(1,1000))
+    forum_query_object = models.ForumQueries(QueryText=query_text, UserID = userID)
+
+    try:
+        db.add(forum_query_object)
+        db.commit()
+    except SQLAlchemyError as e:
+        print("Error creating user:", str(e))
+        raise HTTPException(status_code=500, detail="Error creating user")
+
+    return forum_query_object
+
+@app.get("/get_forum_queries")
+async def get_forum_queries(db: Session = Depends(get_db)):
+    forum_query_objects = db.query(models.ForumQueries).all()
+
+    return forum_query_objects
+
+@app.post("/add_forum_reply")
+async def add_forum_reply(queryID:str, reply_text:str,  db: Session = Depends(get_db)):
+    userID = "User #"+str(random.randint(1,1000))
+    forum_reply_object = models.ForumReplies(QueryID=queryID, ReplyText=reply_text, UserID = userID)
+
+    try:
+        db.add(forum_reply_object)
+        db.commit()
+    except SQLAlchemyError as e:
+        print("Error creating user:", str(e))
+        raise HTTPException(status_code=500, detail="Error creating user")
+
+    return forum_reply_object
+
+@app.get("/get_forum_replies")
+async def get_forum_replies(queryID:str, db: Session = Depends(get_db)):
+    forum_reply_objects = db.query(models.ForumReplies).filter(models.ForumReplies.QueryID == queryID).all()
+
+    return forum_reply_objects

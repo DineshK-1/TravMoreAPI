@@ -23,3 +23,21 @@ class Reviews(Base):
     TreatmentRating = Column(Integer, nullable=False)
     UserID = Column(String(100), nullable=False)
     ReviewText = Column(String(300), nullable=False)
+
+class ForumQueries(Base):
+    __tablename__ = "forumqueries"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    UserID = Column(String(100), nullable=False)
+    QueryText = Column(String(300), nullable=False)
+    QueryDate = Column(DATE, nullable=False)
+    QueryTime = Column(TIMESTAMP, nullable=False)
+
+class ForumReplies(Base):
+    __tablename__ = "forumreplies"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    QueryID = Column(Integer, ForeignKey('forumqueries.id'), nullable=False)
+    ReplyText = Column(String(300), nullable=False)
+    ReplyDate = Column(DATE, nullable=False)
+    ReplyTime = Column(TIMESTAMP, nullable=False)
