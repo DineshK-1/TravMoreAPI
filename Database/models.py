@@ -29,6 +29,7 @@ class ForumQueries(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     UserID = Column(String(100), nullable=False)
+    QueryTitle = Column(String(50), nullable=False)
     QueryText = Column(String(300), nullable=False)
     QueryDate = Column(DATE, nullable=False, server_default=func.now())
     QueryTime = Column(TIMESTAMP(timezone=True), onupdate=func.now())
