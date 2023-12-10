@@ -22,7 +22,7 @@ class Reviews(Base):
     ParkingRating = Column(Integer, nullable=False)
     TreatmentRating = Column(Integer, nullable=False)
     UserID = Column(String(100), nullable=False)
-    ReviewText = Column(String(300), nullable=False)
+    ReviewText = Column(String(5000), nullable=False)
 
 class ForumQueries(Base):
     __tablename__ = "forumqueries"
@@ -30,9 +30,9 @@ class ForumQueries(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     UserID = Column(String(100), nullable=False)
     QueryTitle = Column(String(50), nullable=False)
-    QueryText = Column(String(300), nullable=False)
+    QueryText = Column(String(5000), nullable=False)
     QueryDate = Column(DATE, nullable=False, server_default=func.now())
-    QueryTime = Column(TIMESTAMP(timezone=True), onupdate=func.now())
+    QueryTime = Column(TIMESTAMP(timezone=True), server_default=func.now())
     Category = Column(String(100), nullable=True)
 
 class ForumReplies(Base):
@@ -41,6 +41,6 @@ class ForumReplies(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     QueryID = Column(Integer, ForeignKey('forumqueries.id'), nullable=False)
     UserID = Column(String(100), nullable=False)
-    ReplyText = Column(String(300), nullable=False)
+    ReplyText = Column(String(5000), nullable=False)
     ReplyDate = Column(DATE, nullable=False, server_default=func.now())
-    ReplyTime = Column(TIMESTAMP(timezone=True), onupdate=func.now())
+    ReplyTime = Column(TIMESTAMP(timezone=True), server_default=func.now())
