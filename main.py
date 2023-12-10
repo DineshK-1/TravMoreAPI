@@ -88,9 +88,10 @@ async def get_reviews(placeID:str,  db: Session = Depends(get_db)):
     return review_objects
 
 @app.post("/add_forum_query")
-async def add_forum_query(query_text:str,  db: Session = Depends(get_db)):
+async def add_forum_query(query_title:str, query_text:str, category:str,  db: Session = Depends(get_db)):
     userID = "User #"+str(random.randint(1,1000))
-    forum_query_object = models.ForumQueries(QueryText=query_text, UserID = userID)
+    category = category.lower()
+    forum_query_object = models.ForumQueries(QueryText=query_text, QueryTitle=query_title, UserID = userID, Category=category)
 
     try:
         db.add(forum_query_object)

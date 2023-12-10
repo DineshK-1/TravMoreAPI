@@ -33,6 +33,7 @@ class ForumQueries(Base):
     QueryText = Column(String(300), nullable=False)
     QueryDate = Column(DATE, nullable=False, server_default=func.now())
     QueryTime = Column(TIMESTAMP(timezone=True), onupdate=func.now())
+    Category = Column(String(100), nullable=True)
 
 class ForumReplies(Base):
     __tablename__ = "forumreplies"
