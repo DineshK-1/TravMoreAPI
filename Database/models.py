@@ -39,6 +39,7 @@ class ForumReplies(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     QueryID = Column(Integer, ForeignKey('forumqueries.id'), nullable=False)
+    UserID = Column(String(100), nullable=False)
     ReplyText = Column(String(300), nullable=False)
     ReplyDate = Column(DATE, nullable=False, server_default=func.now())
     ReplyTime = Column(TIMESTAMP(timezone=True), onupdate=func.now())
